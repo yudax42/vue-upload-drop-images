@@ -1,7 +1,5 @@
 <script>
-import { defineComponent } from "vue";
-
-export default /*#__PURE__*/ defineComponent({
+export default {
   name: "VueUploadImages", // vue component name
   data() {
     return {
@@ -94,7 +92,7 @@ export default /*#__PURE__*/ defineComponent({
       });
     },
   },
-});
+};
 </script>
 
 <template>
