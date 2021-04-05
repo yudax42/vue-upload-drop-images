@@ -1,0 +1,26 @@
+{
+  "name": "vue-upload-drop-images",
+  "version": "1.0.0",
+  "description": "Vue component that provides drag and drop images upload with preview",
+  "main": "dist/vue-upload-drop-images.vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yudax42/vue-upload-drop-images"
+  },
+  "keywords": [
+    "vue-image-upload",
+    "vue.js image uploader with preview",
+    "drag drop image",
+    "upload multiple images with preview",
+    "component",
+    "vue-component",
+    "vue-upload-drop-images"
+  ],
+  "author": {
+    "name": "yudax42",
+    "email": "yudax42@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/yudax42/vue-upload-drop-images",
+  "dependencies": {}
+}
