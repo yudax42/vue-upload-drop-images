@@ -1,6 +1,8 @@
 # Vue Images Upload Component
 Vue component that provides drag and drop images upload with preview.
 
+![demo](./demo.gif)
+
 ## Features
 
 * Upload files by Drag & Drop
@@ -11,7 +13,7 @@ Vue component that provides drag and drop images upload with preview.
 
 ## Example
 
-[DEMO]("https://vueupload.yudax.dev")
+[DEMO](https://vueupload.yudax.dev)
 
 ## Install
 
