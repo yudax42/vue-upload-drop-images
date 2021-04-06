@@ -64,6 +64,7 @@ export default {
       this.Imgs.splice(index, 1);
       this.files.splice(index, 1);
       this.$emit("change", this.files);
+      this.$refs.uploadInput.value = null;
     },
     previewImgs(event) {
       if (
