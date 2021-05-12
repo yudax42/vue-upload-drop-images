@@ -10,6 +10,7 @@ Vue component that provides drag and drop images upload with preview.
 * Add images 
 * Delete Images
 * Append Images
+* Remove all images
 
 ## Example
 
@@ -131,4 +132,16 @@ default: `Unsupported file type`
 ```html
     <!-- the message that the user see when the uploaded file is not an image -->
     <UploadImages fileError="images files only accepted"/>
+```
+
+### <b>clearAll</b>
+Type: `String`
+
+Required: `false`
+
+default: `clear All`
+
+```html
+    <!-- the name of the remove all images button -->
+    <UploadImages clearAll="remove all images" />
 ```
