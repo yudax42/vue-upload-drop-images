@@ -14,6 +14,7 @@ export default {
     uploadMsg: String,
     maxError: String,
     fileError: String,
+    clearAll: String,
   },
   methods: {
     dragOver() {
@@ -89,6 +90,12 @@ export default {
       Promise.all(readers).then((values) => {
         this.Imgs = values;
       });
+    },
+    reset() {
+      this.$refs.uploadInput.value = null;
+      this.Imgs = [];
+      this.files = [];
+      this.$emit("change", this.files);
     },
   },
 };
@@ -220,6 +227,9 @@ export default {
       </p>
     </div>
     <div class="imgsPreview" v-show="Imgs.length > 0">
+      <button class="clearButton" @click="reset">
+        {{ clearAll ? clearAll : "clear All" }}
+      </button>
       <div class="imageHolder" v-for="(img, i) in Imgs" :key="i">
         <img :src="img" />
         <span class="delete" style="color: white" @click="deleteImg(--i)">
@@ -338,6 +348,15 @@ export default {
   bottom: 43%;
 }
 .plus:hover {
+  cursor: pointer;
+}
+.clearButton {
+  color: #2d3748;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  background: none;
+  border: none;
   cursor: pointer;
 }
 </style>
