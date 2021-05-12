@@ -22,26 +22,27 @@ export default {
     dragLeave() {},
     drop(e) {
       let status = true;
-
-      e.dataTransfer.files.forEach((file) => {
-        if (file.type.startsWith("image") === false) status = false;
-      });
-      if (status == true) {
-        if (
-          this.$props.max &&
-          e.dataTransfer.files.length + this.files.length > this.$props.max
-        ) {
-          this.error = this.$props.maxError
-            ? this.$props.maxError
-            : `Maximum files is` + this.$props.max;
+      if (e && e.dataTransfer.files) {
+        e.dataTransfer.files.forEach((file) => {
+          if (file.type.startsWith("image") === false) status = false;
+        });
+        if (status == true) {
+          if (
+            this.$props.max &&
+            e.dataTransfer.files.length + this.files.length > this.$props.max
+          ) {
+            this.error = this.$props.maxError
+              ? this.$props.maxError
+              : `Maximum files is` + this.$props.max;
+          } else {
+            this.files.push(...e.dataTransfer.files);
+            this.previewImgs();
+          }
         } else {
-          this.files.push(...e.dataTransfer.files);
-          this.previewImgs();
+          this.error = this.$props.fileError
+            ? this.$props.fileError
+            : `Unsupported file type`;
         }
-      } else {
-        this.error = this.$props.fileError
-          ? this.$props.fileError
-          : `Unsupported file type`;
       }
       this.dropped = 0;
     },
@@ -81,13 +82,10 @@ export default {
       this.error = "";
       this.$emit("change", this.files);
       let readers = [];
-
       if (!this.files.length) return;
-
       for (let i = 0; i < this.files.length; i++) {
         readers.push(this.readAsDataURL(this.files[i]));
       }
-
       Promise.all(readers).then((values) => {
         this.Imgs = values;
       });
@@ -108,6 +106,7 @@ export default {
     <div v-show="error" class="error">
       {{ error }}
     </div>
+
     <!-- To inform user how to upload image -->
     <div v-show="Imgs.length == 0" class="beforeUpload">
       <input
@@ -305,7 +304,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-
 .imgsPreview .imageHolder .delete {
   position: absolute;
   top: 4px;
