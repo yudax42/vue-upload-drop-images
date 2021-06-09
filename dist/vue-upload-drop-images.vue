@@ -23,20 +23,21 @@ export default {
     dragLeave() {},
     drop(e) {
       let status = true;
-      if (e && e.dataTransfer.files) {
-        e.dataTransfer.files.forEach((file) => {
+      let files = Array.from(e.dataTransfer.files)
+      if (e && files) {
+        files.forEach((file) => {
           if (file.type.startsWith("image") === false) status = false;
         });
         if (status == true) {
           if (
             this.$props.max &&
-            e.dataTransfer.files.length + this.files.length > this.$props.max
+            files.length + this.files.length > this.$props.max
           ) {
             this.error = this.$props.maxError
               ? this.$props.maxError
               : `Maximum files is` + this.$props.max;
           } else {
-            this.files.push(...e.dataTransfer.files);
+            this.files.push(...files);
             this.previewImgs();
           }
         } else {
