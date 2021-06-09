@@ -1,6 +1,6 @@
 {
   "name": "vue-upload-drop-images",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Vue component that provides drag and drop images upload with preview",
   "main": "dist/vue-upload-drop-images.vue",
   "repository": {
