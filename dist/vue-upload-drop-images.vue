@@ -227,7 +227,7 @@ export default {
       </p>
     </div>
     <div class="imgsPreview" v-show="Imgs.length > 0">
-      <button class="clearButton" @click="reset">
+      <button type="button" class="clearButton" @click="reset">
         {{ clearAll ? clearAll : "clear All" }}
       </button>
       <div class="imageHolder" v-for="(img, i) in Imgs" :key="i">
