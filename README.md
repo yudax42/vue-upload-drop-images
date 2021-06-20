@@ -1,6 +1,8 @@
 # Vue Images Upload Component
 Vue component that provides drag and drop images upload with preview.
 
+**⚠️ currently this components supports only vue2**
+
 ![demo](./demo.gif)
 
 ## Features
