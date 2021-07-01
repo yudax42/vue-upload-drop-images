@@ -66,7 +66,7 @@ export default {
     deleteImg(index) {
       this.Imgs.splice(index, 1);
       this.files.splice(index, 1);
-      this.$emit("change", this.files);
+      this.$emit("changed", this.files);
       this.$refs.uploadInput.value = null;
     },
     previewImgs(event) {
@@ -82,7 +82,7 @@ export default {
       }
       if (this.dropped == 0) this.files.push(...event.currentTarget.files);
       this.error = "";
-      this.$emit("change", this.files);
+      this.$emit("changed", this.files);
       let readers = [];
       if (!this.files.length) return;
       for (let i = 0; i < this.files.length; i++) {
@@ -96,7 +96,7 @@ export default {
       this.$refs.uploadInput.value = null;
       this.Imgs = [];
       this.files = [];
-      this.$emit("change", this.files);
+      this.$emit("changed", this.files);
     },
   },
 };

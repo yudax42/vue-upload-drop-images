@@ -52,13 +52,13 @@ Vue component that provides drag and drop images upload with preview.
 
 ## Events
 
-### <b>@change</b>
+### <b>@changed</b>
 Fired when new images are added or deleted it always returns uploaded files
 
 Template:
 
 ```html
-        <UploadImages @change="handleImages"/>
+        <UploadImages @changed="handleImages"/>
 ```    
 
 Script:
