@@ -1,7 +1,7 @@
 # Vue Images Upload Component
 Vue component that provides drag and drop images upload with preview.
 
-**⚠️ currently this components supports only vue2**
+![Npm](https://img.shields.io/npm/dm/vue-upload-drop-images.svg)
 
 ![demo](./demo.gif)
 
