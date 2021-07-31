@@ -9,7 +9,7 @@ Vue component that provides drag and drop images upload with preview.
 
 * Upload files by Drag & Drop
 * Upload files by clicking on the upload icon
-* Add images 
+* Add images
 * Delete Images
 * Append Images
 * Remove all images
@@ -21,7 +21,7 @@ Vue component that provides drag and drop images upload with preview.
 ## Install
 
 1. install the package:
- 
+
     ```bash
         npm i vue-upload-drop-images --save
     ```
@@ -40,6 +40,7 @@ Vue component that provides drag and drop images upload with preview.
             ...
         </script>
    ```
+
 3. add component in template
    ```html
         <template>
@@ -50,6 +51,14 @@ Vue component that provides drag and drop images upload with preview.
 
    ```
 
+4. for Nuxt support
+  .nuxt.config:
+    ```javascript
+    build: {
+      transpile: ['vue-upload-drop-images']
+    }
+    ```
+
 ## Events
 
 ### <b>@changed</b>
@@ -59,7 +68,7 @@ Template:
 
 ```html
         <UploadImages @changed="handleImages"/>
-```    
+```
 
 Script:
 
