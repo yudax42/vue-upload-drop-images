@@ -1,12 +1,12 @@
 <script>
 export default {
-  name: "VueUploadImages", // vue component name
+  name: "UploadMedias", // vue component name
   data() {
     return {
       error: "",
-      files: [],
       dropped: 0,
-      Imgs: [],
+      Medias: [],
+      files: [],
     };
   },
   props: {
@@ -23,10 +23,15 @@ export default {
     dragLeave() {},
     drop(e) {
       let status = true;
-      let files = Array.from(e.dataTransfer.files)
+      let files = Array.from(e.dataTransfer.files);
       if (e && files) {
         files.forEach((file) => {
-          if (file.type.startsWith("image") === false) status = false;
+          if (
+            file.type.startsWith("image") === false &&
+            file.type.startsWith("video") === false
+          ) {
+            status = false;
+          }
         });
         if (status == true) {
           if (
@@ -38,7 +43,7 @@ export default {
               : `Maximum files is` + this.$props.max;
           } else {
             this.files.push(...files);
-            this.previewImgs();
+            this.previewMedias();
           }
         } else {
           this.error = this.$props.fileError
@@ -63,13 +68,13 @@ export default {
         fr.readAsDataURL(file);
       });
     },
-    deleteImg(index) {
-      this.Imgs.splice(index, 1);
+    deleteMedias(index) {
+      this.Medias.splice(index, 1);
       this.files.splice(index, 1);
       this.$emit("changed", this.files);
       this.$refs.uploadInput.value = null;
     },
-    previewImgs(event) {
+    previewMedias(event) {
       if (
         this.$props.max &&
         event &&
@@ -86,15 +91,16 @@ export default {
       let readers = [];
       if (!this.files.length) return;
       for (let i = 0; i < this.files.length; i++) {
+        console.log(this.files[i]);
         readers.push(this.readAsDataURL(this.files[i]));
       }
       Promise.all(readers).then((values) => {
-        this.Imgs = values;
+        this.Medias = values;
       });
     },
     reset() {
       this.$refs.uploadInput.value = null;
-      this.Imgs = [];
+      this.Medias = [];
       this.files = [];
       this.$emit("changed", this.files);
     },
@@ -115,19 +121,19 @@ export default {
       {{ error }}
     </div>
 
-    <!-- To inform user how to upload image -->
-    <div v-show="Imgs.length == 0" class="beforeUpload">
+    <!-- To inform user how to Upload Media -->
+    <div v-show="Medias.length == 0" class="beforeUpload">
       <input
         type="file"
         style="z-index: 1"
-        accept="image/*"
+        accept="image/*, video/*"
         ref="uploadInput"
-        @change="previewImgs"
+        @change="previewMedias"
         multiple
       />
       <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <title>Upload Image</title>
-        <g id="Upload_Image" data-name="Upload Image">
+        <title>Upload Media</title>
+        <g id="Upload_Media" data-name="Upload Media">
           <g id="_Group_" data-name="&lt;Group&gt;">
             <g id="_Group_2" data-name="&lt;Group&gt;">
               <g id="_Group_3" data-name="&lt;Group&gt;">
@@ -224,16 +230,25 @@ export default {
       </svg>
 
       <p class="mainMessage">
-        {{ uploadMsg ? uploadMsg : "Click to upload or drop your images here" }}
+        {{
+          uploadMsg
+            ? uploadMsg
+            : "Click to upload or drop your images/videos here"
+        }}
       </p>
     </div>
-    <div class="imgsPreview" v-show="Imgs.length > 0">
+    <div class="MediasPreview" v-show="Medias.length > 0">
       <button type="button" class="clearButton" @click="reset">
-        {{ clearAll ? clearAll : "clear All" }}
+        {{ clearAll ? clearAll : "Clear All" }}
       </button>
-      <div class="imageHolder" v-for="(img, i) in Imgs" :key="i">
-        <img :src="img" />
-        <span class="delete" style="color: white" @click="deleteImg(--i)">
+      <div class="imageHolder" v-for="(media, i) in Medias" :key="i">
+        <template v-if="media.startsWith('data:image')">
+          <img :src="media" />
+        </template>
+        <template v-else>
+          <video :src="media" controls />
+        </template>
+        <span class="delete" style="color: white" @click="deleteMedias(--i)">
           <svg
             class="icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +264,7 @@ export default {
             />
           </svg>
         </span>
-        <div class="plus" @click="append" v-if="++i == Imgs.length">+</div>
+        <div class="plus" @click="append" v-if="++i == Medias.length">+</div>
       </div>
     </div>
   </div>
@@ -257,7 +272,8 @@ export default {
 
 <style scoped>
 .container {
-  width: 100%;
+  width: 70%;
+  margin: auto;
   height: 100%;
   background: #f7fafc;
   border: 0.5px solid #a3a8b1;
@@ -301,7 +317,7 @@ export default {
   margin: auto;
   display: block;
 }
-.imgsPreview .imageHolder {
+.MediasPreview .imageHolder {
   width: 150px;
   height: 150px;
   background: #fff;
@@ -310,12 +326,13 @@ export default {
   margin: 5px 5px;
   display: inline-block;
 }
-.imgsPreview .imageHolder img {
+.MediasPreview .imageHolder img,
+video {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
-.imgsPreview .imageHolder .delete {
+.MediasPreview .imageHolder .delete {
   position: absolute;
   top: 4px;
   right: 4px;
@@ -325,16 +342,16 @@ export default {
   background: red;
   border-radius: 50%;
 }
-.imgsPreview .imageHolder .delete:hover {
+.MediasPreview .imageHolder .delete:hover {
   cursor: pointer;
 }
-.imgsPreview .imageHolder .delete .icon {
+.MediasPreview .imageHolder .delete .icon {
   width: 66%;
   height: 66%;
   display: block;
   margin: 4px auto;
 }
-.imgsPreview .imageHolder .plus {
+.MediasPreview .imageHolder .plus {
   color: #2d3748;
   background: #f7fafc;
   border-radius: 50%;
@@ -352,12 +369,14 @@ export default {
   cursor: pointer;
 }
 .clearButton {
-  color: #2d3748;
+  color: white;
   position: absolute;
   top: 7px;
   right: 7px;
-  background: none;
+  background: red;
   border: none;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 12px;
 }
 </style>

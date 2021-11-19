@@ -1,7 +1,5 @@
-# Vue Images Upload Component
-Vue component that provides drag and drop images upload with preview.
-
-![Npm](https://img.shields.io/npm/dm/vue-upload-drop-images.svg)
+# Vue Medias Upload Component
+Vue component that provides drag and drop images & videos upload with preview.
 
 ![demo](./demo.gif)
 
@@ -9,10 +7,10 @@ Vue component that provides drag and drop images upload with preview.
 
 * Upload files by Drag & Drop
 * Upload files by clicking on the upload icon
-* Add images
-* Delete Images
-* Append Images
-* Remove all images
+* Add Medias
+* Delete Medias
+* Append Medias
+* Remove all medias
 
 ## Example
 
@@ -23,7 +21,7 @@ Vue component that provides drag and drop images upload with preview.
 1. install the package:
 
     ```bash
-        npm i vue-upload-drop-images --save
+        npm i vue-upload-drop-medias --save
     ```
 
 2. import it in your project
@@ -31,11 +29,11 @@ Vue component that provides drag and drop images upload with preview.
    .vue file:
    ```javascript
         <script>
-            import UploadImages from "vue-upload-drop-images"
+            import UploadMedias from "vue-upload-drop-medias"
             ...
             export default {
                     components: {
-                        UploadImages,
+                        UploadMedias,
                     },
             ...
         </script>
@@ -45,7 +43,7 @@ Vue component that provides drag and drop images upload with preview.
    ```html
         <template>
         ...
-            <UploadImages />
+            <UploadMedias />
         ...
         </template>
 
@@ -55,19 +53,19 @@ Vue component that provides drag and drop images upload with preview.
   .nuxt.config:
     ```javascript
     build: {
-      transpile: ['vue-upload-drop-images']
+      transpile: ['vue-upload-drop-medias']
     }
     ```
 
 ## Events
 
 ### <b>@changed</b>
-Fired when new images are added or deleted it always returns uploaded files
+Fired when new medias are added or deleted it always returns uploaded files
 
 Template:
 
 ```html
-        <UploadImages @changed="handleImages"/>
+        <UploadMedias @changed="handleMedias"/>
 ```
 
 Script:
@@ -75,7 +73,7 @@ Script:
 ```javascript
     ...
         methods:{
-            handleImages(files){
+            handleMedias(files){
                 console.log(files)
                 /*
                   [
@@ -105,8 +103,8 @@ Required: `false`
 default: `null`
 
 ```html
-    <!-- the user can upload up to 5 images-->
-    <UploadImages :max="5"/>
+    <!-- the user can upload up to 5 medias-->
+    <UploadMedias :max="5"/>
 ```
 
 ### <b>maxError</b>
@@ -117,8 +115,8 @@ Required: `false`
 default: `Maximum files is`
 
 ```html
-    <!-- the error message that the user sees when the uploaded images greater that the max images required-->
-    <UploadImages maxError="Max files exceed"/>
+    <!-- the error message that the user sees when the uploaded medias greater that the max medias required-->
+    <UploadMedias maxError="Max files exceed"/>
 ```
 
 ### <b>uploadMsg</b>
@@ -129,8 +127,8 @@ Required: `false`
 default: `Click to upload or drop your images here`
 
 ```html
-    <!-- the message that the user see to upload the images -->
-    <UploadImages uploadMsg="upload product images"/>
+    <!-- the message that the user see to upload the medias -->
+    <UploadMedias uploadMsg="upload product images/videos"/>
 ```
 
 ### <b>fileError</b>
@@ -141,8 +139,8 @@ Required: `false`
 default: `Unsupported file type`
 
 ```html
-    <!-- the message that the user see when the uploaded file is not an image -->
-    <UploadImages fileError="images files only accepted"/>
+    <!-- the message that the user see when the uploaded file is not an image or a video -->
+    <UploadMedias fileError="images and videos files only accepted"/>
 ```
 
 ### <b>clearAll</b>
@@ -153,6 +151,6 @@ Required: `false`
 default: `clear All`
 
 ```html
-    <!-- the name of the remove all images button -->
-    <UploadImages clearAll="remove all images" />
+    <!-- the name of the remove all medias button -->
+    <UploadMedias clearAll="remove all images" />
 ```
