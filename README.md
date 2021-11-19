@@ -10,7 +10,7 @@ Vue component that provides drag and drop images & videos upload with preview.
 * Add Medias
 * Delete Medias
 * Append Medias
-* Remove all medias
+* Remove all Medias
 
 ## Example
 
@@ -95,6 +95,19 @@ Script:
 
 
 ## Props
+
+### <b>Accept Video</b>
+Type: `Boolean`
+
+Required: `false`
+
+default: `false`
+
+```html
+    <!-- the user can upload also videos -->
+    <UploadMedias :acceptVideo="true" />
+```
+
 ### <b>max</b>
 Type: `Number`
 
@@ -152,5 +165,5 @@ default: `clear All`
 
 ```html
     <!-- the name of the remove all medias button -->
-    <UploadMedias clearAll="remove all images" />
+    <UploadMedias clearAll="remove all medias" />
 ```

@@ -15,6 +15,10 @@ export default {
     maxError: String,
     fileError: String,
     clearAll: String,
+    acceptVideo: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     dragOver() {
@@ -29,6 +33,11 @@ export default {
           if (
             file.type.startsWith("image") === false &&
             file.type.startsWith("video") === false
+          ) {
+            status = false;
+          } else if (
+            this.$props.acceptVideo === false &&
+            file.type.startsWith("video") === true
           ) {
             status = false;
           }
@@ -126,7 +135,7 @@ export default {
       <input
         type="file"
         style="z-index: 1"
-        accept="image/*, video/*"
+        :accept="acceptVideo ? 'image/*, video/*' : 'image/*'"
         ref="uploadInput"
         @change="previewMedias"
         multiple
@@ -230,11 +239,7 @@ export default {
       </svg>
 
       <p class="mainMessage">
-        {{
-          uploadMsg
-            ? uploadMsg
-            : "Click to upload or drop your images/videos here"
-        }}
+        {{ uploadMsg ? uploadMsg : "Click to upload or drop your medias here" }}
       </p>
     </div>
     <div class="MediasPreview" v-show="Medias.length > 0">
